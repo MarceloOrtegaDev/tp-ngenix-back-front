@@ -18,7 +18,7 @@ export default function Login() {
   const onSubmit = async (data: FormValues) => {
     setServerError(null)
     try {
-      const res = await fetch('http://localhost:4000/auth/login', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -77,7 +77,7 @@ export default function Login() {
       </form>
 
       <div style={{ marginTop: 12 }}>
-        ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
+        ¿No tienes cuenta? <Link to="/registro">Regístrate</Link>
       </div>
     </div>
   )
