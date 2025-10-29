@@ -12,21 +12,17 @@ const morgan_1 = __importDefault(require("morgan"));
 const env_1 = require("./env/env");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use((0, cors_1.default)({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-}));
+app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)("dev"));
-app.use("/api/auth", userRoute_1.userRouter);
+app.use("/api", userRoute_1.userRouter);
 app.use("/api", crudRoute_1.routerTasks);
-// Iniciar servidor
+// Iniciar servidorcd
 const startServer = async () => {
     try {
         await db_1.ConectDb.createDb().conexion(env_1.MONGO_DB_CONNECTION);
         console.log("MongoDB conectado correctamente");
-        app.listen(4000, () => {
-            console.log(`Servidor corriendo en http://localhost:4000`);
+        app.listen(env_1.PORT, () => {
+            console.log(`Servidor corriendo en http://localhost:${env_1.PORT}`);
         });
     }
     catch (err) {

@@ -1,9 +1,13 @@
 services:
-  backend:
+
+  app:
     build: ./backend
     container_name: backend
-    ports:
-      - "8080:8080"
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - mongo
     networks:
       - app-network
 
@@ -23,7 +27,6 @@ services:
     container_name: frontend
     volumes:
       - frontend_build:/app/build
-    command: sh -c "npm run build && sleep 1"
     networks:
       - app-network
 
@@ -36,14 +39,15 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - frontend_build:/usr/share/nginx/html:ro
     depends_on:
-      - backend
+      - app
     networks:
       - app-network
 
 volumes:
+  mongo-data:
+    driver: local
   frontend_build:
     driver: local
-  mongo-data:
 
 networks:
   app-network:

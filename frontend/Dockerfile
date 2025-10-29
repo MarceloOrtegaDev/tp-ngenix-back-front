@@ -11,4 +11,4 @@ WORKDIR /app
 # Create a directory for the built static files
 RUN mkdir -p /app/build
 COPY --from=builder /app/build /app/build
-CMD ["/bin/sh", "-c", "echo build complete; sleep 1"]
+CMD ["/bin/sh", "-c", "echo Build complete; sleep 1"]

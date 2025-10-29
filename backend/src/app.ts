@@ -4,28 +4,24 @@ import { userRouter } from "./routes/userRoute";
 import cors from "cors";
 import { ConectDb } from "./db/db";
 import morgan from "morgan";
-import { MONGO_DB_CONNECTION } from "./env/env";
+import { MONGO_DB_CONNECTION, PORT } from "./env/env";
 
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-}));
+app.use(cors());
 app.use(morgan("dev"));
 
-app.use("/api/auth", userRouter);
+app.use("/api", userRouter);
 app.use("/api", routerTasks);
-// Iniciar servidor
+// Iniciar servidorcd
 const startServer = async () => {
   try {
     await ConectDb.createDb().conexion(MONGO_DB_CONNECTION!);
     console.log("MongoDB conectado correctamente");
-    
-    app.listen(4000, () => {
-      console.log(`Servidor corriendo en http://localhost:4000`);
+
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
   } catch (err) {
     console.error("Error al conectar a MongoDB:", err);

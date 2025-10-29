@@ -18,7 +18,7 @@ export default function Register() {
   const onSubmit = async (data: FormValues) => {
     setServerError(null)
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -35,7 +35,7 @@ export default function Register() {
         localStorage.setItem('token', resData.token)
       }
 
-      navigate('/login')
+      navigate('/')
     } catch (err) {
       console.error(err)
       setServerError('Error de red. Intenta nuevamente.')
@@ -78,7 +78,7 @@ export default function Register() {
       </form>
 
       <div style={{ marginTop: 12 }}>
-        ¿Tienes cuenta? <Link to="/login">Inicia sesión</Link>
+        ¿Tienes cuenta? <Link to="/">Inicia sesión</Link>
       </div>
     </div>
   )
